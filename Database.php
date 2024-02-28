@@ -1,10 +1,11 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-class Database{
+class Database
+{
 
     static  $dbName = 'idesa.db';
 
-    public static function setDB() :void 
+    public static function setDB(): void
     {
         $db = self::getConnection();
         $db->exec("DROP TABLE debts");
@@ -19,8 +20,8 @@ class Database{
         $db->exec("INSERT INTO debts(id, lote, precio, clientID, vencimiento) VALUES (8,'00148',190000,123456, '2023-02-01')");
     }
 
-    public static function getConnection() {
+    public static function getConnection()
+    {
         return new SQLite3(self::$dbName);
     }
 }
-

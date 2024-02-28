@@ -11,22 +11,25 @@ class DesafioUno
 
         $lotes = self::getLotes();
 
-        $cobrar['status']            = true;
+        // Se invierte la lógica del booleano Status.
+        $cobrar['status']            = false;
         $cobrar['message']           = 'No hay Lotes para cobrar';
         $cobrar['data']['total']     = 0;
         $cobrar['data']['detail']    = [];
 
         foreach ($lotes as $lote) {
-            // TODO: Se debe descomentar y corregir.
-            // if ($lote->vencimiento || $lote->vencimiento > date('Y-m-d')) continue;
+            // Se separan las condiciones para primeramente verificar si el vencimiento es nulo.
+            if (!$lote->vencimiento) continue;
+            // Luego se verifica la fecha, con una corrección en la comparación.
+            if ($lote->vencimiento <= date('Y-m-d')) continue;
 
             // Se corrige el nombre de la propiedad clientID.
             // Se utiliza igualdad no-estricta para comparar string e intenger.
             if ($lote->clientID != $clientID) continue;
 
-            $cobrar['status']             = false;
+            $cobrar['status']             = true;
             $cobrar['message']            = 'Tienes Lotes para cobrar';
-            $cobrar['data']['total']     += $lote->monto;
+            $cobrar['data']['total']     += $lote->precio;
             $cobrar['data']['detail'][]   = (array) $lote;
         }
 
