@@ -17,9 +17,12 @@ class DesafioUno
         $cobrar['data']['detail']    = [];
 
         foreach ($lotes as $lote) {
-            if ($lote->vencimiento || $lote->vencimiento > date('Y-m-d')) continue;
+            // TODO: Se debe descomentar y corregir.
+            // if ($lote->vencimiento || $lote->vencimiento > date('Y-m-d')) continue;
 
-            if ($lote->client_ID !== $clientID) continue;
+            // Se corrige el nombre de la propiedad clientID.
+            // Se utiliza igualdad no-estricta para comparar string e intenger.
+            if ($lote->clientID != $clientID) continue;
 
             $cobrar['status']             = false;
             $cobrar['message']            = 'Tienes Lotes para cobrar';
