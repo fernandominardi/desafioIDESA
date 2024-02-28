@@ -1,20 +1,21 @@
-<?php 
+<?php
 require_once 'Database.php';
 
-class DesafioDos {
+class DesafioDos
+{
 
-    public static function retriveLotes(int $loteID):void {
-
-        Database::setDB(); 
-
-        echo(json_encode(self::getLotes($loteID)));
+    public static function retriveLotes(int $loteID): void
+    {
+        Database::setDB();
+        echo (json_encode(self::getLotes($loteID)));
     }
 
-    private static function getLotes (int $loteID){
+    private static function getLotes(int $loteID)
+    {
         $lotes = [];
         $cnx = Database::getConnection();
         $stmt = $cnx->query("SELECT * FROM debts WHERE lote = '$loteID' LIMIT 2");
-        while($rows = $stmt->fetchArray(SQLITE3_ASSOC)){
+        while ($rows = $stmt->fetchArray(SQLITE3_ASSOC)) {
             $lotes[] = (object) $rows;
         }
         return $lotes;
