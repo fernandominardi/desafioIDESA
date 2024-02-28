@@ -3,21 +3,25 @@ require_once 'Database.php';
 
 class DesafioDos
 {
-
-    public static function retriveLotes(int $loteID): void
+    // Se corrige el tipo del parámetro. En la base de datos se utiliza strings para la columna lote.
+    public static function retriveLotes(string $loteID): void
     {
         Database::setDB();
         echo (json_encode(self::getLotes($loteID)));
     }
 
-    private static function getLotes(int $loteID)
+    // Se corrige el tipo del parámetro. En la base de datos se utiliza strings para la columna lote.
+    private static function getLotes(string $loteID)
     {
         $lotes = [];
+
         $cnx = Database::getConnection();
-        $stmt = $cnx->query("SELECT * FROM debts WHERE lote = '$loteID' LIMIT 2");
+        // Se elimina el limite de 2 registros.
+        $stmt = $cnx->query("SELECT * FROM debts WHERE lote = '$loteID' ");
         while ($rows = $stmt->fetchArray(SQLITE3_ASSOC)) {
             $lotes[] = (object) $rows;
         }
+
         return $lotes;
     }
 }
